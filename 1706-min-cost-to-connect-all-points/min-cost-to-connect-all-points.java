@@ -1,29 +1,32 @@
 class Solution {
     public int minCostConnectPoints(int[][] points) {
-        int ans=0;
-        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[2]-b[2]);
-        pq.add(new int[]{points[0][0],points[0][1],0,0});
-        boolean[] visited=new boolean[points.length];
-        while(!pq.isEmpty()){
-            int[] curr=pq.remove();
-            int x1=curr[0];
-            int y1=curr[1];
-            int cost=curr[2];
-            int z=curr[3];
-            if(!visited[z]){
-                visited[z]=true;
-                ans+=cost;
-                for(int i=0; i<points.length; i++){
-                    if(!visited[i]){
-                        int x2=points[i][0];
-                        int y2=points[i][1];
-                        int calculate=Math.abs(Math.abs(x1-x2)+Math.abs(y1-y2));
-                        pq.add(new int[]{x2,y2,calculate,i});
-                    }
-                }
-
-            }
+        int n=points.length;
+        if(n<=1){
+            return 0;
         }
-        return ans;
+        int total=0;
+        int[] mindist= new int[n];
+        boolean[] inmst=new boolean[n];
+        Arrays.fill(mindist,Integer.MAX_VALUE );
+        mindist[0]=0;
+        for(int i=0; i<n; i++){
+            int u=-1;
+            for(int j=0; j<n; j++){
+                if(!inmst[j] &&(u==-1 || mindist[j]<mindist[u])){
+                    u=j;
+                }
+            }
+            inmst[u]=true;
+            total+=mindist[u]== Integer.MAX_VALUE ? 0:mindist[u];
+            for(int v=0; v<n; v++){
+                if(!inmst[v]){
+                int w=Math.abs(points[u][0]-points[v][0])+Math.abs(points[u][1]-points[v][1]);
+                if(w<mindist[v]){
+                    mindist[v]=w;
+                }
+                }
+            } 
+        }
+        return total;
     }
 }
