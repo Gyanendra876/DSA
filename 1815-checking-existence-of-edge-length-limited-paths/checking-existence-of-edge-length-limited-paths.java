@@ -46,7 +46,6 @@ class Solution {
                 ans[q[i][3]]=true;
             } 
             i++;      
-                
         }
 
         return ans;
