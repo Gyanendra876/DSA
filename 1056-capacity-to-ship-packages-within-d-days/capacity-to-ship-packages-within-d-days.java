@@ -14,12 +14,15 @@ class Solution {
             int cal=1;
             int sum=0;
             while(i<weights.length){
-                if(sum+weights[i]>mid ){
-                    sum=0;
-                    cal++;
+                if(sum+weights[i]<=mid ){
+                    sum+=weights[i];
+                    i++;
                 }
-                sum+=weights[i]; 
-                i++;
+                else{
+                    sum=0;
+                    cal++; 
+                }
+            
 
             }
             if(cal<=days){
