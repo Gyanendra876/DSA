@@ -11,7 +11,7 @@ class Solution {
         while(l<=h){
             int mid=l+(h-l)/2;
             int i=0;
-            int cal=1;
+            int cal=0;
             int sum=0;
             while(i<weights.length){
                 if(sum+weights[i]<=mid ){
@@ -22,9 +22,8 @@ class Solution {
                     sum=0;
                     cal++; 
                 }
-            
-
             }
+            cal++;
             if(cal<=days){
                 ans=mid;
                 h=mid-1;
