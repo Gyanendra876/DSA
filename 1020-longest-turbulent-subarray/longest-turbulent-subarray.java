@@ -1,34 +1,31 @@
 class Solution {
     public int maxTurbulenceSize(int[] nums) {
-       int max=Integer.MIN_VALUE;
-       for(int i=0; i<=nums.length-1; i++){
-        if(i+1<=nums.length-1 &&((i%2==0 &&nums[i]>nums[i+1])||(i%2!=0 &&nums[i]<nums[i+1]))){
-            int count=calculate1(i,nums);
-            max=Math.max(count,max);
-        } 
-        else if(i+1<=nums.length-1 &&((i%2==0 &&nums[i]<nums[i+1])||(i%2!=0 &&nums[i]>nums[i+1]))){
-            int count=calculate2(i,nums);
-            max=Math.max(count,max);
+        int n = nums.length;
+
+        if (n == 1) {
+            return 1;
         }
+
+        int curr = 1;
+        int max = 1;
+
+        for (int i = 1; i < n; i++) {
+
+            if (nums[i] == nums[i - 1]) {
+                curr = 1;
+            }
+            else if (i == 1 || 
+                    (nums[i - 1] > nums[i] && nums[i - 2] < nums[i - 1]) ||
+                    (nums[i - 1] < nums[i] && nums[i - 2] > nums[i - 1])) {
+                curr++;
+            }
+            else {
+                curr = 2;
+            }
+
+            max = Math.max(max, curr);
+        }
+
+        return max;
     }
-       
-       return max==Integer.MIN_VALUE?1:max;
-    }
-    public int calculate1(int i,int[] nums){
-        int count=0;
-        while(i+1<=nums.length-1&& ((i%2==0 && (nums[i]>nums[i+1]))||(i%2!=0 && nums[i]<nums[i+1]))){
-            count++;
-            i++;
-        }
-        return count+1;
-    } 
-    public int calculate2(int i,int[] nums){
-        int count=0;
-        while(i+1<=nums.length-1 && ((i%2==0 && nums[i]<nums[i+1])||(i%2!=0 && nums[i]>nums[i+1]))){
-            count++;
-            i++;
-        }
-        return count+1;
-    } 
-       
 }
