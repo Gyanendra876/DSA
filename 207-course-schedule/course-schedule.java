@@ -1,0 +1,41 @@
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        ArrayList<ArrayList<Integer>> ls=new ArrayList<>();
+        int indegree[]=new int[numCourses];
+        boolean visited[]=new boolean[numCourses];
+        Queue<Integer> q=new LinkedList<>();
+        for(int i=0; i<numCourses; i++){
+            ls.add(new ArrayList<>());
+        }
+        for(int i=0; i<prerequisites.length; i++){
+            int u=prerequisites[i][0];
+            int v=prerequisites[i][1];
+            ls.get(v).add(u);
+            indegree[u]++;
+
+        }
+        for(int i=0; i<numCourses; i++){
+            if(indegree[i]==0){
+                q.add(i);
+            }
+        }
+       
+        while(!q.isEmpty()){
+            int curr=q.remove();
+            visited[curr]=true;
+            for(int i=0; i<ls.get(curr).size(); i++){
+                int val=ls.get(curr).get(i);
+                indegree[val]--;
+                if(indegree[val]==0){
+                    q.add(val);
+                }
+            }
+
+        }
+        for(int i=0; i<numCourses; i++){
+            if(indegree[i]!=0)return false;
+        }
+        return true;
+
+    }
+}
