@@ -34,13 +34,14 @@ class Solution {
             if(!visited[u]){
             cost+=wt;
             visited[u]=true;
-            System.out.println(u);
+            
             for(int i=0; i<graph[u].size(); i++){
                 edge e=graph[u].get(i);
                 pq.add(new int[]{e.v,e.w});
                 
             }
-          }
+            }
+          
         }
         return cost;
     }
