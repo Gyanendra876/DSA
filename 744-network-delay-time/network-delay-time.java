@@ -28,6 +28,7 @@ class Solution {
             int curr[]=pq.remove();
             int u=curr[0];
             int w=curr[1];
+            if(w > dist[u]) continue;
             for(int i=0; i<graph.get(u).size(); i++){
                 edge e=graph.get(u).get(i);
                 if(dist[u]+e.w<dist[e.v]){
