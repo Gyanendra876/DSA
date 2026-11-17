@@ -19,7 +19,7 @@ class Solution {
         if(p==null || q==null ||p.val!=q.val)return false;
         boolean lh=isSameTree(p.left,q.left);
         boolean rh=isSameTree(p.right,q.right);
-        if(lh && rh &&(p.val==q.val))return true;
+        if(lh && rh )return true;
         return false;
     }
 }
